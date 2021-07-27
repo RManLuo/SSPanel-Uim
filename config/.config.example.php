@@ -80,8 +80,8 @@ $_ENV['random_group']              = '0';                       //注册时随�
 $_ENV['enable_reg_im']             = false;                      //注册时是否要求用户输入IM联系方式
 
 $_ENV['reg_forbidden_ip']          = '127.0.0.0/8,::1/128';     //注册时默认禁止访问IP列表，半角英文逗号分割
-$_ENV['min_port']                  = 10000;                     //用户端口池最小值
-$_ENV['max_port']                  = 65535;                     //用户端口池最大值
+$_ENV['min_port']                  = 10000;                     //用户端口池最小值，如果该数值为0则用户在注册的时候不会被分配多用户端口，适合纯V2Ray/Trojan机场
+$_ENV['max_port']                  = 65535;                     //用户端口池最大值，如果该数值为0则用户在注册的时候不会被分配多用户端口，适合纯V2Ray/Trojan机场
 $_ENV['reg_forbidden_port']        = '';                        //注册时默认禁止访问端口列表，半角英文逗号分割，支持端口段
 
 $_ENV['mu_suffix']                 = 'microsoft.com';           //单端口多用户混淆参数后缀，可以随意修改，但请保持前后端一致
@@ -285,8 +285,12 @@ $_ENV['enable_checkin_captcha'] = false;        //启用签到验证码
 
 
 //支付系统设置----------------------------------------------------------------------------------------
-#取值 none | f2fpay | paymentwall | spay | payjs | bitpayx | theadpay | coinpay
-$_ENV['payment_system']       = 'none';
+#取值 none | f2fpay | paymentwall | spay | payjs | bitpayx | theadpay | coinpay | vmqpay
+$_ENV['payment_system']       = 'none';     // todo: ['gateway1', 'gateway2']
+
+# vmqpay
+$_ENV['vmqpay_key']           = '';          //v免签通讯密钥
+$_ENV['vmqpay_gateway']       = '';          //v免签网关地址如 https://pay.com
 
 # codepay码支付
 $_ENV['codepay_id']           = '';          //码支付ID
@@ -315,9 +319,7 @@ $_ENV['zfbjk_pid']            = '';
 $_ENV['zfbjk_key']            = '';
 $_ENV['zfbjk_qrcodeurl']      = '';
 
-# MugglePay 麻瓜宝（USDT、比特币、以太坊、EOS等） 商户后台获取授权码 https://merchants.mugglepay.com/
-#   注册即可使用USDT收款，无需任何费用
-#   客服和技术 24x7 在线支持： https://t.me/mugglepay
+# MugglePay 麻瓜宝（USDT、比特币、以太坊、EOS等） https://merchants.mugglepay.com/
 $_ENV['bitpay_secret']        = '';
 
 # PayJs
@@ -332,8 +334,12 @@ $_ENV['theadpay_key']         = '';
 # CoinPay
 $_ENV['coinpay_appid']  ='';	// CoinPay 应用ID (*)
 $_ENV['coinpay_secret'] ='';	// CoinPay 验证密钥 (*)
-$_ENV['coinpay_notify'] ='';  // 异步回调URL
-$_ENV['coinpay_return'] ='';  // 同步返回URL
+$_ENV['coinpay_notify'] ='';    // 异步回调URL
+$_ENV['coinpay_return'] ='';    // 同步返回URL
+
+# EasyPay https://t.me/Easy_panel
+$_ENV['easypay_app_id'] = '';      // 商户APPID
+$_ENV['easypay_app_secret'] = '';  // 商户APPKEY
 
 #后台商品列表 销量统计
 $_ENV['sales_period']         = 30;             //统计指定周期内的销量，值为【expire/任意大于0的整数】
@@ -479,7 +485,6 @@ $_ENV['cloudflare_name']        = '';            //域名
 
 #是否夹带统计代码，自己在 resources/views/{主题名} 下创建一个 analytics.tpl ，如果有必要就用 literal 界定符
 $_ENV['enable_analytics_code']  = false;
-$_ENV['sspanelAnalysis']        = true;
 
 #在套了CDN之后获取用户真实ip，如果您不知道这是什么，请不要乱动
 $_ENV['cdn_forwarded_ip'] = array('HTTP_X_FORWARDED_FOR', 'HTTP_ALI_CDN_REAL_IP', 'X-Real-IP', 'True-Client-Ip');
@@ -496,3 +501,5 @@ $_ENV['sentry_dsn'] = '';
 
 // ClientDownload 命令解决 API 访问频率高而被限制使用的 Github access token
 $_ENV['github_access_token'] = '';
+
+$_ENV['php_user_group'] = 'www:www';

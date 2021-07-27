@@ -100,6 +100,7 @@ return function (SlimApp $app) {
 
         $this->post('/code/f2fpay',             App\Services\Payment::class . ':purchase');
         $this->get('/code/codepay',             App\Services\Payment::class . ':purchase');
+        $this->get('/code/vmqpay',             App\Services\Payment::class . ':purchase');
 
         //Reconstructed Payment System
         $this->post('/payment/purchase',        App\Services\Payment::class . ':purchase');
@@ -161,6 +162,7 @@ return function (SlimApp $app) {
 
         // Ticket Mange
         $this->get('/ticket',                   App\Controllers\Admin\TicketController::class . ':index');
+        $this->post('/ticket',                  App\Controllers\Admin\TicketController::class . ':add');
         $this->get('/ticket/{id}/view',         App\Controllers\Admin\TicketController::class . ':show');
         $this->put('/ticket/{id}',              App\Controllers\Admin\TicketController::class . ':update');
         $this->post('/ticket/ajax',             App\Controllers\Admin\TicketController::class . ':ajax');
